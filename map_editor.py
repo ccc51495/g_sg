@@ -94,17 +94,17 @@ class Button():
 
     def button_g_click(self):
         self.mode = -1
-        button_choices1 = easygui.buttonbox("选择建筑","建筑",("城墙","箭楼","石墙","关隘","投石台"))
-        if button_choices1 == "城墙":
-            button_choices1 = easygui.buttonbox("选择参数","城墙",("城墙","箭楼","石墙","关隘","投石台"))
-        elif button_choices1 == "箭楼":
-            pass
-        elif button_choices1 == "石墙":
-            pass
-        elif button_choices1 == "关隘":
-            pass
-        elif button_choices1 == "投石台":
-            pass
+        button_choices = easygui.buttonbox("选择建筑","建筑",("城镇","箭楼","城区","城塞","投石台"))
+        if button_choices == "城镇":
+            self.mode = 8
+        elif button_choices == "箭楼":
+            self.mode = 9
+        elif button_choices == "城区":
+            self.mode = 10
+        elif button_choices == "城塞":
+            self.mode = 11
+        elif button_choices == "投石台":
+            self.mode = 12
     
     def button_i_click(self):
         self.mode = 7
@@ -159,6 +159,7 @@ def map_size(he,wi):
                     exec("a.button_{}_click()".format(MyActiveC))
             if MyActiveD:
                 if event.type == pygame.MOUSEBUTTONDOWN:
+                    print(a.mode)
                     if a.mode == 1:
                         draw_tree(screen,MyActiveD[0],MyActiveD[1])
                         maplist[MyActiveD[1]][MyActiveD[0]].landform = 1
@@ -194,6 +195,21 @@ def map_size(he,wi):
                     elif a.mode == 0:
                         draw_white(screen,MyActiveD[0],MyActiveD[1])
                         maplist[MyActiveD[1]][MyActiveD[0]].landform = 0
+
+                    elif a.mode == 8:
+                        set_dha = easygui.multenterbox("选择参数","城镇",("城镇防御","城镇耐久"))
+
+                    elif a.mode == 9:
+                        set_dha = easygui.multenterbox("选择参数","箭楼",("箭楼防御","箭楼耐久","箭楼攻击"))
+
+                    elif a.mode == 10:
+                        set_dha = easygui.multenterbox("选择参数","城区",("城区防御","城区耐久"))
+
+                    elif a.mode == 11:
+                        set_dha = easygui.multenterbox("选择参数","城塞",("城塞防御","城塞耐久"))
+
+                    elif a.mode == 12:
+                        set_dha = easygui.multenterbox("选择参数","投石台",("投石防御","投石耐久","投石攻击"))
                         
         pygame.display.update()
         
